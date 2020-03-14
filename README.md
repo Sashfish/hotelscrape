@@ -1,2 +1,2 @@
 # hotelscrape
-Hotel prices scraping excercise
+Hotel prices scraping exercise
