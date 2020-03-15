@@ -6,7 +6,8 @@ $range3 = array("2020-06-30","2020-06-25");
 $site_mid = "&latLong=57.123834%2C-2.156496&localDateFormat=d%2FM%2Fyyyy&regionId=278&searchPriorityOverride=213&selected=18926256&semdtl=&sort=PRICE_LOW_TO_HIGH&startDate=";
 $site_end = "&theme=&useRewards=true&userIntent";
 
-$file = __DIR__ ."/scraped.csv";
+$hotelname = "Marcliffe Hotel and Spa";
+$file = getcwd() . "\scraped.csv";
 $current = "";
 
 $url1 = $site_beginning . $range1[0] . $site_mid . $range1[1] . $site_end;
@@ -68,16 +69,18 @@ echo "<br>";
 if(isset($_POST['button1'])){
   if(!file_exists($file)){
     $current .= "\"Hotel Name\",\"Period\",\"Price\"\n";
-    $current .= "\"Marcliffe Hotel and Spa\",\"1 Jun - 2 Jun\",\"{$match1[1]}\"\n";
-    $current .= "\"Marcliffe Hotel and Spa\",\"16 Jun - 19 Jun\",\"{$match2[1]}\"\n";
-    $current .= "\"Marcliffe Hotel and Spa\",\"25 Jun - 30 Jun\",\"{$match3[1]}\"\n";
+    $current .= "\"{$hotelname}\",\"{$range1[1]} - {$range1[0]}\",\"{$match1[1]}\"\n";
+    $current .= "\"{$hotelname}\",\"{$range2[1]} - {$range2[0]}\",\"{$match2[1]}\"\n";
+    $current .= "\"{$hotelname}\",\"{$range3[1]} - {$range3[0]}\",\"{$match3[1]}\"\n";
     file_put_contents($file, $current);
     $current = "";}
-  //else{
-  //  $current = file_get_contents($file);
-  //  $current .=
-  //  file_put_contents($file, $current);
-  //  $current = "";}
+  else{
+    $current = file_get_contents($file);
+    $current .= "\"{$hotelname}\",\"{$range1[1]} - {$range1[0]}\",\"{$match1[1]}\"\n";
+    $current .= "\"{$hotelname}\",\"{$range2[1]} - {$range2[0]}\",\"{$match2[1]}\"\n";
+    $current .= "\"{$hotelname}\",\"{$range3[1]} - {$range3[0]}\",\"{$match3[1]}\"\n";
+    file_put_contents($file, $current);
+    $current = "";}
 }
 ?>
 <form method="post">
