@@ -17,7 +17,6 @@ function scrape($in, $out){
   curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201');
   curl_setopt($curl, CURLOPT_URL, $url);
   curl_setopt($curl, CURLOPT_REFERER, $url);
-
   $html = curl_exec($curl);
   curl_close($curl);
   echo "Scrape complete for {$in} -- {$out}";
@@ -27,16 +26,14 @@ function scrape($in, $out){
   echo "<br>";
   return array("in" => $in, "out" => $out, "price"=> $match[1]);
 }
-?>
 
-<?php
-if(isset($_POST['button2'])){
+if(isset($_POST['button1'])){
   scrape($_POST['in1'], $_POST['out1']);
   scrape($_POST['in2'], $_POST['out2']);
   scrape($_POST['in3'], $_POST['out3']);
 }
 
-if(isset($_POST['button1'])){
+if(isset($_POST['button2'])){
   $result1 = scrape($_POST['in1'], $_POST['out1']);
   $result2 = scrape($_POST['in2'], $_POST['out2']);
   $result3 = scrape($_POST['in3'], $_POST['out3']);
@@ -71,6 +68,6 @@ if(isset($_POST['button1'])){
   <input type="text" id="in3" name="in3" required>
   <label for="out3">3rd Out:</label>
   <input type="text" id="out3" name="out3" required><br>
-  <input type="submit" name="button2" class ="button" value="Scrape">
-  <input type="submit" name="button1" class="button" value="Save results to csv">
+  <input type="submit" name="button1" class ="button" value="Scrape">
+  <input type="submit" name="button2" class="button" value="Save results to csv">
 </form>
