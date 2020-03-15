@@ -21,7 +21,10 @@ function scrape($in, $out){
   curl_close($curl);
   echo "Scrape complete for {$in} -- {$out}";
   echo "<br>";
-  preg_match("/data-stid=\"content-hotel-lead-price\" aria-hidden=\"true\">(.*?\d)<\/span>/", $html, $match);
+
+  if(preg_match("/We are sold out/", $html)) {$match = ["","N/A"];}
+  else {preg_match("/data-stid=\"content-hotel-lead-price\" aria-hidden=\"true\">(.*?\d)<\/span>/", $html, $match);}
+
   echo $match[1];
   echo "<br>";
   return array("in" => $in, "out" => $out, "price"=> $match[1]);
