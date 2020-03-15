@@ -37,18 +37,21 @@ if(isset($_POST['button2'])){
 }
 
 if(isset($_POST['button1'])){
+  $result1 = scrape($_POST['in1'], $_POST['out1']);
+  $result2 = scrape($_POST['in2'], $_POST['out2']);
+  $result3 = scrape($_POST['in3'], $_POST['out3']);
   if(!file_exists($file)){
     $current .= "\"Hotel Name\",\"Period\",\"Price\"\n";
-    //$current .= "\"{$hotelname}\",\"{$range1[1]} - {$range1[0]}\",\"{$match1[1]}\"\n";
-    //$current .= "\"{$hotelname}\",\"{$range2[1]} - {$range2[0]}\",\"{$match2[1]}\"\n";
-    //$current .= "\"{$hotelname}\",\"{$range3[1]} - {$range3[0]}\",\"{$match3[1]}\"\n";
+    $current .= "\"{$hotelname}\",\"{$result1['in']} - {$result1['out']}\",\"{$result1['price']}\"\n";
+    $current .= "\"{$hotelname}\",\"{$result2['in']} - {$result2['out']}\",\"{$result2['price']}\"\n";
+    $current .= "\"{$hotelname}\",\"{$result3['in']} - {$result3['out']}\",\"{$result3['price']}\"\n";
     file_put_contents($file, $current);
     $current = "";}
   else{
     $current = file_get_contents($file);
-    //$current .= "\"{$hotelname}\",\"{$range1[1]} - {$range1[0]}\",\"{$match1[1]}\"\n";
-    //$current .= "\"{$hotelname}\",\"{$range2[1]} - {$range2[0]}\",\"{$match2[1]}\"\n";
-    //$current .= "\"{$hotelname}\",\"{$range3[1]} - {$range3[0]}\",\"{$match3[1]}\"\n";
+    $current .= "\"{$hotelname}\",\"{$result1['in']} - {$result1['out']}\",\"{$result1['price']}\"\n";
+    $current .= "\"{$hotelname}\",\"{$result2['in']} - {$result2['out']}\",\"{$result2['price']}\"\n";
+    $current .= "\"{$hotelname}\",\"{$result3['in']} - {$result3['out']}\",\"{$result3['price']}\"\n";
     file_put_contents($file, $current);
     $current = "";}
 }
@@ -57,18 +60,17 @@ if(isset($_POST['button1'])){
 <p>Input the desired date ranges (format: YYYY-MM-DD)</p>
 <form method="post">
   <label for="in1">1st In:</label>
-  <input type="text" id="in1" name="in1">
+  <input type="text" id="in1" name="in1" required>
   <label for="out1">1st Out:</label>
-  <input type="text" id="out1" name="out1"><br>
+  <input type="text" id="out1" name="out1" required><br>
   <label for="in2">2nd In:</label>
-  <input type="text" id="in2" name="in2">
+  <input type="text" id="in2" name="in2" required>
   <label for="out2">2nd Out:</label>
-  <input type="text" id="out2" name="out2"><br>
+  <input type="text" id="out2" name="out2" required><br>
   <label for="in3">3rd In:</label>
-  <input type="text" id="in3" name="in3">
+  <input type="text" id="in3" name="in3" required>
   <label for="out3">3rd Out:</label>
-  <input type="text" id="out3" name="out3"><br>
+  <input type="text" id="out3" name="out3" required><br>
   <input type="submit" name="button2" class ="button" value="Scrape">
+  <input type="submit" name="button1" class="button" value="Save results to csv">
 </form>
-<form method="post">
-<input type="submit" name="button1" class="button" value="Save results to csv" />
